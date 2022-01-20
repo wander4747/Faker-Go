@@ -3,8 +3,7 @@ package faker
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"os"
+	"github.com/wander4747/faker-go/locale"
 	"strconv"
 	"strings"
 )
@@ -44,13 +43,14 @@ type AddressInterface interface {
 }
 
 func (f *Fake) Address() AddressInterface {
-	jsonFile, err := os.Open(fmt.Sprintf("./locale/%s/address.json", f.Locale))
-	if err != nil {
-		return nil
+	loader := locale.Loader(f.Locale, locale.ADDRESS)
+
+	data, err := json.Marshal(loader)
+	if err != nil || loader == nil {
+		panic("error converter struct")
 	}
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	address := &address{f, byteValue, nil}
+	address := &address{f, data, nil}
 	address.data, err = address.getData()
 	return address
 }

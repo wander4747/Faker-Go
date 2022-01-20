@@ -2,9 +2,7 @@ package faker
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"os"
+	"github.com/wander4747/faker-go/locale"
 )
 
 type nameStruct struct {
@@ -24,13 +22,14 @@ type NameInterface interface {
 }
 
 func (f *Fake) Name() NameInterface {
-	jsonFile, err := os.Open(fmt.Sprintf("./locale/%s/name.json", f.Locale))
-	if err != nil {
-		return nil
+	loader := locale.Loader(f.Locale, locale.NAME)
+
+	data, err := json.Marshal(loader)
+	if err != nil || loader == nil {
+		panic("error converter struct")
 	}
 
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	name := &name{f, byteValue, nil}
+	name := &name{f, data, nil}
 	name.data, err = name.getData()
 	return name
 }

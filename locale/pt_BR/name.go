@@ -1,0 +1,36 @@
+package pt_BR
+
+var Names = map[string][]string{
+	"first_name": {
+		"Wander",
+		"Erika",
+		"Elaine",
+		"Diego",
+		"Cristian",
+		"Michael",
+		"Ingrid",
+		"Vitoria",
+		"Rafael",
+		"Dalton",
+		"Lara",
+		"Laerte",
+		"Katia",
+		"Igor",
+	},
+	"last_name": {
+		"Santos",
+		"Silva",
+		"Ferreira",
+		"Costa",
+		"Gomes",
+		"Almeida",
+		"Nunes",
+		"Soares",
+		"Neves",
+		"Barbosa",
+		"Lima",
+		"Batista",
+		"Pinheiro",
+		"Faria",
+	},
+}
