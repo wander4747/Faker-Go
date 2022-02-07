@@ -1,0 +1,27 @@
+name: Test Go Code
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [ 1.14.x, 1.15.x, 1.16.x, 1.17.x ]
+        platform: [ ubuntu-20.04 ]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: run test
+        run:  go test -v -cover -race -gcflags=all=-l ./...

@@ -34,7 +34,7 @@ func (f *Fake) Commerce() CommerceInterface {
 	}
 
 	commerces := &commerce{f, data, nil}
-	commerces.data, err = commerces.getData()
+	commerces.data, _ = commerces.getData()
 	return commerces
 }
 

@@ -51,7 +51,7 @@ func (f *Fake) Address() AddressInterface {
 	}
 
 	address := &address{f, data, nil}
-	address.data, err = address.getData()
+	address.data, _ = address.getData()
 	return address
 }
 

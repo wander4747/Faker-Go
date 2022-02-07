@@ -32,7 +32,7 @@ func (f *Fake) Person() PersonInterface {
 	}
 
 	person := &person{f, data, nil}
-	person.data, err = person.getData()
+	person.data, _ = person.getData()
 	return person
 }
 
