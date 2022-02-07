@@ -1,6 +1,6 @@
 package pt_BR
 
-var Names = map[string][]string{
+var Persons = map[string][]string{
 	"first_name": {
 		"Wander",
 		"Erika",

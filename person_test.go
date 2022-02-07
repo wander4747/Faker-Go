@@ -11,16 +11,15 @@ func TestFake_Name(t *testing.T) {
 	tests := []struct {
 		name   string
 		locale string
-		want   NameInterface
+		want   PersonInterface
 	}{
-		{"Success", "pt_BR", f.Name()},
+		{"Success", "pt_BR", f.Person()},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			got := f.Name()
+			got := f.Person()
 			require.Equal(t, tt.want, got)
-
 		})
 	}
 }
@@ -31,7 +30,7 @@ func Test_name(t *testing.T) {
 	type fields struct {
 		Fake *Fake
 		File []byte
-		data *nameStruct
+		data *personStruct
 	}
 	tests := []struct {
 		name     string
@@ -46,7 +45,7 @@ func Test_name(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			n := &name{
+			n := &person{
 				Fake: tt.fields.Fake,
 				File: tt.fields.File,
 				data: tt.fields.data,
@@ -67,18 +66,51 @@ func Test_name(t *testing.T) {
 	}
 }
 
+func Test_person_Age(t *testing.T) {
+
+	fake, file, names := getTestName()
+
+	type fields struct {
+		Fake *Fake
+		File []byte
+		data *personStruct
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		want    *personStruct
+		wantErr bool
+	}{
+		{"Success", fields{fake, file, &names}, &names, false},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			n := &person{
+				Fake: tt.fields.Fake,
+				File: tt.fields.File,
+				data: tt.fields.data,
+			}
+
+			if n.Age() < 1 {
+				t.Errorf("Age incorrect")
+			}
+		})
+	}
+}
+
 func Test_name_getData(t *testing.T) {
 	fake, file, names := getTestName()
 
 	type fields struct {
 		Fake *Fake
 		File []byte
-		data *nameStruct
+		data *personStruct
 	}
 	tests := []struct {
 		name    string
 		fields  fields
-		want    *nameStruct
+		want    *personStruct
 		wantErr bool
 	}{
 		{"Success", fields{fake, file, &names}, &names, false},
@@ -86,7 +118,7 @@ func Test_name_getData(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			n := &name{
+			n := &person{
 				Fake: tt.fields.Fake,
 				File: tt.fields.File,
 				data: tt.fields.data,
@@ -103,7 +135,7 @@ func Test_name_getData(t *testing.T) {
 	}
 }
 
-func getTestName() (*Fake, []byte, nameStruct) {
+func getTestName() (*Fake, []byte, personStruct) {
 	fake := New("pt_BR")
 
 	json := `{
@@ -115,7 +147,7 @@ func getTestName() (*Fake, []byte, nameStruct) {
 		]
 	}`
 
-	names := nameStruct{
+	names := personStruct{
 		FirstName: []string{"Wander"},
 		LastName:  []string{"Douglas"},
 	}

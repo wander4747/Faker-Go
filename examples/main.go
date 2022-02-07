@@ -9,6 +9,6 @@ import (
 func main() {
 	f := faker.New("pt_BR")
 
-	name := f.Name().FullName()
+	name := f.Person().Age()
 	fmt.Println(name)
 }
